@@ -17,6 +17,13 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.TextBoxBase;
+import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -31,59 +38,76 @@ public class GWT_Sek implements EntryPoint {
 			+ "connection and try again.";
 
 	/**
-	 * Create a remote service proxy to talk to the server-side Greeting service.
+	 * Create a remote service proxy to talk to the server-side Greeting
+	 * service.
 	 */
 	private final GreetingServiceAsync greetingService = GWT
 			.create(GreetingService.class);
 	private Button sendButton;
 	private TextBox nameField;
 	private RootPanel rootPanel;
-	private AbsolutePanel panel;
 	private Label title;
 
 	/**
-	 * This is the entry point method. 
+	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		title = new Label("SEK-Web Sampleproject");
-		sendButton = new Button("Send");
-		nameField = new TextBox();
-		nameField.setText("GWT User");
-		final Label errorLabel = new Label();
-
-		// We can add style names to widgets
-		sendButton.addStyleName("sendButton");
-		sendButton.setSize("146px", "50px");
-		title.setSize("300px", "30px");
 
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
 		rootPanel = RootPanel.get();
 		rootPanel.setSize("100%", "100%");
 
-		// Focus the cursor on the name field when the app loads and select its content
+		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		horizontalPanel.setSpacing(20);
+		horizontalPanel
+				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		rootPanel.add(horizontalPanel, 0, 0);
+		horizontalPanel.setSize("100%", "100%");
+		
+				// Add some Images
+				Image image = new Image("ressources/images/logo-xs.png");
+				horizontalPanel.add(image);
+
+		VerticalPanel verticalPanel = new VerticalPanel();
+		verticalPanel.setStyleName("panel");
+		verticalPanel.setSpacing(5);
+		horizontalPanel.add(verticalPanel);
+		title = new Label("SEK-Web Sampleproject");
+		verticalPanel.add(title);
+		verticalPanel.setCellHorizontalAlignment(title, HasHorizontalAlignment.ALIGN_CENTER);
+		title.setSize("300px", "30px");
+		nameField = new TextBox();
+		nameField.setAlignment(TextAlignment.CENTER);
+		nameField.setTextAlignment(TextBoxBase.ALIGN_CENTER);
+		verticalPanel.add(nameField);
+		verticalPanel.setCellHorizontalAlignment(nameField, HasHorizontalAlignment.ALIGN_CENTER);
+		nameField.setText("GWT User");
+
+		// Focus the cursor on the name field when the app loads and select its
+		// content
 		nameField.setFocus(true);
-		
-		// Create the panel, which holds our controls
-		panel = new AbsolutePanel();
-		panel.setStyleName("panel");
-		rootPanel.add(panel, 145, 26);
-		panel.setSize("377px", "233px");
-		
-		// Add the Button and Field to our panel
-		panel.add(nameField, 108, 47);
-		panel.add(sendButton, 120, 93);
-		panel.add(errorLabel);
-		panel.add(title, 40, 0);
-		
-		
+		sendButton = new Button("Send");
+		verticalPanel.add(sendButton);
+		verticalPanel.setCellHorizontalAlignment(sendButton, HasHorizontalAlignment.ALIGN_CENTER);
+
+		// We can add style names to widgets
+		sendButton.addStyleName("sendButton");
+		sendButton.setSize("146px", "50px");
+		final Label errorLabel = new Label();
+		verticalPanel.add(errorLabel);
+
+		Image image_1 = new Image("ressources/images/icons_oose_java.png");
+		horizontalPanel.add(image_1);
+		horizontalPanel.setCellHorizontalAlignment(image_1,
+				HasHorizontalAlignment.ALIGN_RIGHT);
 
 		// Create the popup dialog box
 		final DialogBox dialogBox = new DialogBox();
 		dialogBox.setText("Remote Procedure Call");
 		dialogBox.setAnimationEnabled(true);
 		final Button closeButton = new Button("Close");
-		
+
 		// We can set the id of a widget by accessing its Element
 		closeButton.getElement().setId("closeButton");
 		final Label textToServerLabel = new Label();
@@ -126,7 +150,8 @@ public class GWT_Sek implements EntryPoint {
 			}
 
 			/**
-			 * Send the name from the nameField to the server and wait for a response.
+			 * Send the name from the nameField to the server and wait for a
+			 * response.
 			 */
 			private void sendNameToServer() {
 				// First, we validate the input.
