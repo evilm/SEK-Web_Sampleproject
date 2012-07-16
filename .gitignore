@@ -1,0 +1,13 @@
+/gwt-unitCache
+/builddir
+/dist
+war/
+tomcat/
+taskdb.*
+.gwt/
+test/build/
+test/compile/
+
+#mac stuff
+.DS_Store
+/.classpath
