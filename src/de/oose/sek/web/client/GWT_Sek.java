@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
@@ -74,13 +75,14 @@ public class GWT_Sek implements EntryPoint {
 		verticalPanel.setStyleName("panel");
 		verticalPanel.setSpacing(5);
 		horizontalPanel.add(verticalPanel);
+		verticalPanel.setHeight("335px");
 
 		// Add the title label
 		title = new Label("SEK-Web Sampleproject");
-		verticalPanel.setCellHorizontalAlignment(title,
-				HasHorizontalAlignment.ALIGN_CENTER);
 		title.setSize("300px", "30px");
 		verticalPanel.add(title);
+		verticalPanel.setCellHorizontalAlignment(title,
+				HasHorizontalAlignment.ALIGN_CENTER);
 
 		// Add the name textbox
 		nameField = new TextBox();
@@ -110,6 +112,14 @@ public class GWT_Sek implements EntryPoint {
 
 		final Label errorLabel = new Label();
 		verticalPanel.add(errorLabel);
+
+		// Exercise_1: Add a final RichTextArea
+		final RichTextArea responseTextArea = new RichTextArea();
+		responseTextArea.setSize("318px", "196px");
+
+		verticalPanel.add(responseTextArea);
+		verticalPanel.setCellHorizontalAlignment(responseTextArea,
+				HasHorizontalAlignment.ALIGN_CENTER);
 
 		// We can set the id of a widget by accessing its Element
 		final Button closeButton = new Button("Close");
@@ -191,6 +201,9 @@ public class GWT_Sek implements EntryPoint {
 							}
 
 							public void onSuccess(String result) {
+								// Exercise_1: Set result as text
+								responseTextArea.setHTML(result);
+
 								dialogBox.setText("Remote Procedure Call");
 								serverResponseLabel
 										.removeStyleName("serverResponseLabelError");
