@@ -34,8 +34,9 @@ h1 {
 }
 .panel {
 	background-color:#eeeeee;
-	border-color: #648c29;
 	border: 1px solid;
+	border-color: #648c29;
+
 }
 .gwt-Label {
 text-align: center;

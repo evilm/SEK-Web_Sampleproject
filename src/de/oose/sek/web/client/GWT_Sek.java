@@ -1,6 +1,5 @@
 package de.oose.sek.web.client;
 
-import de.oose.sek.web.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -12,18 +11,16 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.TextBoxBase;
 import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
+import com.google.gwt.user.client.ui.VerticalPanel;
+
+import de.oose.sek.web.shared.FieldVerifier;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -53,65 +50,79 @@ public class GWT_Sek implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 
-		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
 		rootPanel = RootPanel.get();
 		rootPanel.setSize("100%", "100%");
 
+		// Add the horizontal panel, which will contain all of the control
+		// elements
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(20);
 		horizontalPanel
 				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		rootPanel.add(horizontalPanel, 0, 0);
 		horizontalPanel.setSize("100%", "100%");
-		
-				// Add some Images
-				Image image = new Image("ressources/images/logo-xs.png");
-				horizontalPanel.add(image);
+		rootPanel.add(horizontalPanel, 0, 0);
 
+		// Add the oose logo to the left cell of the horizontal panel
+		Image oose_logo = new Image("ressources/images/logo-xs.png");
+		horizontalPanel.add(oose_logo);
+		horizontalPanel.setCellHorizontalAlignment(oose_logo,
+				HasHorizontalAlignment.ALIGN_CENTER);
+
+		// Add the central controls in their own vertical panel
 		VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setStyleName("panel");
 		verticalPanel.setSpacing(5);
 		horizontalPanel.add(verticalPanel);
+
+		// Add the title label
 		title = new Label("SEK-Web Sampleproject");
-		verticalPanel.add(title);
-		verticalPanel.setCellHorizontalAlignment(title, HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setCellHorizontalAlignment(title,
+				HasHorizontalAlignment.ALIGN_CENTER);
 		title.setSize("300px", "30px");
+		verticalPanel.add(title);
+
+		// Add the name textbox
 		nameField = new TextBox();
 		nameField.setAlignment(TextAlignment.CENTER);
-		nameField.setTextAlignment(TextBoxBase.ALIGN_CENTER);
-		verticalPanel.add(nameField);
-		verticalPanel.setCellHorizontalAlignment(nameField, HasHorizontalAlignment.ALIGN_CENTER);
 		nameField.setText("GWT User");
-
+		verticalPanel.add(nameField);
+		verticalPanel.setCellHorizontalAlignment(nameField,
+				HasHorizontalAlignment.ALIGN_CENTER);
 		// Focus the cursor on the name field when the app loads and select its
 		// content
 		nameField.setFocus(true);
-		sendButton = new Button("Send");
-		verticalPanel.add(sendButton);
-		verticalPanel.setCellHorizontalAlignment(sendButton, HasHorizontalAlignment.ALIGN_CENTER);
 
+		// Add the send button
+		sendButton = new Button("Send");
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
-		sendButton.setSize("146px", "50px");
+		sendButton.setSize("76px", "33px");
+		verticalPanel.add(sendButton);
+		verticalPanel.setCellHorizontalAlignment(sendButton,
+				HasHorizontalAlignment.ALIGN_CENTER);
+
+		// Add the tup logo to the right cell of the horizontal panel
+		Image tup_logo = new Image("ressources/images/icons_oose_java.png");
+		horizontalPanel.setCellHorizontalAlignment(tup_logo,
+				HasHorizontalAlignment.ALIGN_CENTER);
+		horizontalPanel.add(tup_logo);
+
 		final Label errorLabel = new Label();
 		verticalPanel.add(errorLabel);
 
-		Image image_1 = new Image("ressources/images/icons_oose_java.png");
-		horizontalPanel.add(image_1);
-		horizontalPanel.setCellHorizontalAlignment(image_1,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		// We can set the id of a widget by accessing its Element
+		final Button closeButton = new Button("Close");
+		closeButton.getElement().setId("closeButton");
+		final Label textToServerLabel = new Label();
+		final HTML serverResponseLabel = new HTML();
 
 		// Create the popup dialog box
 		final DialogBox dialogBox = new DialogBox();
 		dialogBox.setText("Remote Procedure Call");
 		dialogBox.setAnimationEnabled(true);
-		final Button closeButton = new Button("Close");
 
-		// We can set the id of a widget by accessing its Element
-		closeButton.getElement().setId("closeButton");
-		final Label textToServerLabel = new Label();
-		final HTML serverResponseLabel = new HTML();
+		// Create and style our response panel for the dialog box
 		VerticalPanel dialogVPanel = new VerticalPanel();
 		dialogVPanel.addStyleName("dialogVPanel");
 		dialogVPanel.add(new HTML("<b>Sending name to the server:</b>"));
