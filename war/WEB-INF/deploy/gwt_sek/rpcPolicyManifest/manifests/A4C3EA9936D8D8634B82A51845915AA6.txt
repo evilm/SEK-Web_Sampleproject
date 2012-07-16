@@ -1,0 +1,2 @@
+serviceClass: de.oose.sek.web.client.GreetingService
+path: 5552EA4E35BA106D118D573A9A1889B6.gwt.rpc
