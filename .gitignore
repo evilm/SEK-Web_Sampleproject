@@ -1,6 +1,7 @@
 /gwt-unitCache
 /builddir
 /dist
+war/WEB_INF/classes/
 tomcat/
 taskdb.*
 .gwt/
