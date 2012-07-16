@@ -1,2 +1,0 @@
-SEK-Web_Sampleproject
-=====================
