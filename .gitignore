@@ -1,7 +1,7 @@
 /gwt-unitCache
 /builddir
 /dist
-war/WEB_INF/classes/
+war/WEB-INF/classes/
 tomcat/
 taskdb.*
 .gwt/
@@ -10,4 +10,3 @@ test/compile/
 
 #mac stuff
 .DS_Store
-/.classpath
